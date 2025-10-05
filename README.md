@@ -2,6 +2,12 @@
 
 A modern, real-time Indian stock market dashboard built with React, featuring dark mode, interactive charts, and comprehensive market data visualization.
 
+![Dashboard Screenshot](./screenshots/dashboard.png)
+
+## 🎥 Live Demo
+
+Check out the live demo: [https://Imrohan007.github.io/indian-stock-market-dashboard](https://Imrohan007.github.io/indian-stock-market-dashboard)
+
 ## ✨ Features
 
 ### Core Features
