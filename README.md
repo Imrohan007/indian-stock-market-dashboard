@@ -53,6 +53,37 @@ npm run build
 
 This creates an optimized production build in the `build` folder.
 
+## 🌐 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages.
+
+### Setup Instructions
+
+1. **Enable GitHub Pages:**
+   - Go to your repository settings
+   - Navigate to **Pages** section
+   - Under **Source**, select **GitHub Actions**
+
+2. **Push to main branch:**
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+
+3. **Automatic Deployment:**
+   - The GitHub Actions workflow will automatically build and deploy your app
+   - Your site will be available at: `https://Imrohan007.github.io/indian-stock-market-dashboard`
+
+### Manual Deployment
+
+If you prefer manual deployment:
+
+```bash
+npm run build
+# Then upload the build folder to your hosting service
+```
+
 ## 📁 Project Structure
 
 ```

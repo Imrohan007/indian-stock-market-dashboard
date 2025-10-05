@@ -2,6 +2,7 @@
   "name": "indian-stock-market-dashboard",
   "version": "1.0.0",
   "description": "Real-time Indian Stock Market Dashboard with Dark Mode",
+  "homepage": "https://Imrohan007.github.io/indian-stock-market-dashboard",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
