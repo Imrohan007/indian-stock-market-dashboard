@@ -30,3 +30,8 @@ code {
     scrollbar-width: none;
   }
 }
+
+/* Smooth scrolling for horizontal scroll containers */
+.overflow-x-auto {
+  scroll-behavior: smooth;
+}

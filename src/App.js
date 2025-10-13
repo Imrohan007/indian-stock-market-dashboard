@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
-      <div className="bg-gray-50 dark:bg-gray-900 min-h-screen transition-colors duration-200">
+      <div className="bg-gray-50 dark:bg-[#0a0e1a] min-h-screen transition-colors duration-200">
         <Navbar 
           darkMode={darkMode} 
           toggleDarkMode={toggleDarkMode}
@@ -84,8 +84,8 @@ function App() {
             isOpen={sidebarOpen}
             setSelectedStock={setSelectedStock}
           />
-          <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
-            <div className="p-6 pt-20">
+          <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'md:ml-64' : 'ml-0'}`}>
+            <div className="p-4 md:p-6 pt-20">
               {renderContent()}
             </div>
           </main>

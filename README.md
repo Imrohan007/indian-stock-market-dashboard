@@ -194,32 +194,46 @@ src/
 
 ## 🔌 API Integration
 
-Currently, the app uses simulated data. To integrate real market data:
+The app now fetches **real-time stock data** from Yahoo Finance API!
 
-1. **NSE/BSE API**: Replace simulated data with actual API calls
-2. **Yahoo Finance API**: Alternative data source
-3. **Alpha Vantage**: For international markets
+### Current Implementation
 
-Example API integration in `Dashboard.js`:
+The app uses the following data sources:
+- **Yahoo Finance API** - Real-time NSE/BSE stock prices (no API key required)
+- **NIFTY 50 & SENSEX** - Live index data
+- **Auto-refresh** - Data updates every 60 seconds
 
-```javascript
-import axios from 'axios';
+### API Configuration (Optional)
 
-useEffect(() => {
-  const fetchStockData = async () => {
-    try {
-      const response = await axios.get('YOUR_API_ENDPOINT');
-      setStockData(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-  
-  fetchStockData();
-  const interval = setInterval(fetchStockData, 5000); // Update every 5 seconds
-  return () => clearInterval(interval);
-}, []);
-```
+For enhanced data or alternative sources, you can add API keys:
+
+1. **Copy the example environment file:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Add your API keys (optional):**
+   ```env
+   REACT_APP_ALPHA_VANTAGE_KEY=your_key_here
+   ```
+
+3. **Get free API keys:**
+   - Alpha Vantage: [https://www.alphavantage.co/support/#api-key](https://www.alphavantage.co/support/#api-key)
+
+### API Service Structure
+
+The app includes a dedicated API service (`src/services/stockApi.js`) with:
+- `fetchStockData(symbol)` - Get individual stock data
+- `fetchMultipleStocks(symbols)` - Batch fetch multiple stocks
+- `fetchIndexData(index)` - Get NIFTY/SENSEX data
+- Automatic fallback to mock data if API fails
+
+### Supported Stocks
+
+Currently tracking 14 major Indian stocks:
+- RELIANCE, TCS, HDFCBANK, INFY, ICICIBANK
+- BHARTIARTL, WIPRO, TATAMOTORS, AXISBANK, SUNPHARMA
+- ADANIPORTS, LT, MARUTI, ASIANPAINT
 
 ## 🎯 Key Features Explained
 
@@ -229,8 +243,10 @@ useEffect(() => {
 - System-wide dark mode support
 
 ### Real-time Updates
-- Simulated live price updates every 3 seconds
-- Can be replaced with WebSocket connections for actual real-time data
+- Live stock prices from Yahoo Finance API
+- Auto-refresh every 60 seconds
+- Loading indicators during data fetch
+- Graceful fallback to mock data if API fails
 
 ### Responsive Design
 - Mobile-first approach

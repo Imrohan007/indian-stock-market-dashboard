@@ -1,16 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, Moon, Sun, TrendingUp, Bell, Search, User, Settings, LogOut, UserCircle, Briefcase, HelpCircle } from 'lucide-react';
+import { Menu, Moon, Sun, TrendingUp, User, Settings, LogOut, UserCircle, Briefcase, HelpCircle } from 'lucide-react';
 
 const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [searchQuery, setSearchQuery] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const userMenuRef = useRef(null);
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Close user menu when clicking outside
   useEffect(() => {
@@ -24,94 +17,47 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('en-IN', { 
-      hour: '2-digit', 
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true 
-    });
-  };
-
-  const formatDate = (date) => {
-    return date.toLocaleDateString('en-IN', { 
-      weekday: 'short',
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
-    });
-  };
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-lg border-b border-gray-200 dark:border-gray-700">
-      <div className="px-4 py-3">
-        <div className="flex items-center justify-between">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-[#0f1419] shadow-lg border-b border-gray-200 dark:border-gray-900">
+      <div className="flex">
+        {/* Sidebar Logo Section - Desktop Only */}
+        <div className="hidden md:flex w-64 items-center px-6 py-3 bg-gray-900 dark:bg-[#0f1419] border-r border-gray-800 dark:border-gray-900">
+          <TrendingUp className="w-8 h-8 text-blue-500" />
+          <span className="ml-3 text-xl font-bold text-white">StockMarket</span>
+        </div>
+        
+        {/* Main Navbar Content */}
+        <div className="flex-1 px-4 py-3">
+          <div className="flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleSidebar}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               <Menu className="w-6 h-6 text-gray-700 dark:text-gray-200" />
             </button>
-            
-            <div className="flex items-center space-x-2">
-              <TrendingUp className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Indian Stock Market
-                </h1>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  NSE & BSE Live
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Center Section - Search */}
-          <div className="hidden md:flex flex-1 max-w-xl mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search stocks (e.g., RELIANCE, TCS, INFY)..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            {/* Mobile Logo */}
+            <div className="md:hidden flex items-center space-x-2">
+              <TrendingUp className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <span className="text-lg font-bold text-gray-900 dark:text-white">StockMarket</span>
             </div>
           </div>
 
           {/* Right Section */}
           <div className="flex items-center space-x-4">
-            {/* Time Display */}
-            <div className="hidden lg:block text-right">
-              <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                {formatTime(currentTime)}
-              </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">
-                {formatDate(currentTime)}
-              </div>
-            </div>
-
             {/* Market Status */}
-            <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900">
+            <div className="hidden md:flex items-center space-x-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-950">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-green-700 dark:text-green-300">
                 Market Open
               </span>
             </div>
 
-            {/* Notifications */}
-            <button className="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-              <Bell className="w-6 h-6 text-gray-700 dark:text-gray-200" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               {darkMode ? (
                 <Sun className="w-6 h-6 text-yellow-400" />
@@ -124,16 +70,16 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
             <div className="relative" ref={userMenuRef}>
               <button 
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               >
                 <User className="w-6 h-6 text-gray-700 dark:text-gray-200" />
               </button>
 
               {/* User Dropdown Menu */}
               {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50">
+                <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-[#1a1f2e] rounded-xl shadow-xl border border-gray-200 dark:border-gray-800 py-2 z-50">
                   {/* User Info */}
-                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                  <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
                         <User className="w-6 h-6 text-white" />
@@ -152,7 +98,7 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
                         setShowUserMenu(false);
                         // Navigate to profile
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left"
                     >
                       <UserCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       <div>
@@ -166,7 +112,7 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
                         setShowUserMenu(false);
                         // Navigate to portfolio
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left"
                     >
                       <Briefcase className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       <div>
@@ -180,7 +126,7 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
                         setShowUserMenu(false);
                         // Navigate to settings
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left"
                     >
                       <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       <div>
@@ -194,7 +140,7 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
                         setShowUserMenu(false);
                         // Navigate to help
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
+                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-left"
                     >
                       <HelpCircle className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       <div>
@@ -228,19 +174,6 @@ const Navbar = ({ darkMode, toggleDarkMode, toggleSidebar }) => {
             </div>
           </div>
         </div>
-
-        {/* Mobile Search */}
-        <div className="md:hidden mt-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search stocks..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
         </div>
       </div>
     </nav>
